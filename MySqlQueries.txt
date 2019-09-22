@@ -1,0 +1,29 @@
+CREATE DATABASE SinaiGraceRadiologyStudentGradeBook
+USE SinaiGraceRadiologyStudentGradeBook
+
+CREATE TABLE Class(
+	Id INT PRIMARY KEY IDENTITY(1,1),
+	Semester NVARCHAR(15) NOT NULL,
+	[Year] INT NOT NULL
+	);
+CREATE TABLE Student(
+	Id INT PRIMARY KEY IDENTITY(1,1),
+	Email NVARCHAR(75),
+	[Name] NVARCHAR(60) NOT NULL
+	);
+CREATE TABLE Grade(
+	Id INT PRIMARY KEY IDENTITY(1,1),
+	ClassId INT FOREIGN KEY REFERENCES Class(Id),
+	StudentId INT FOREIGN KEY REFERENCES Student(Id),
+	[Type] NVARCHAR(20) NOT NULL,
+	TotalPointsPossible INT NOT NULL,
+	PointsEarned INT NOT NULL
+	);
+CREATE TABLE ClassToStudent(
+	Id INT PRIMARY KEY IDENTITY(1,1),
+	ClassId INT FOREIGN KEY REFERENCES Class(Id),
+	StudentId INT FOREIGN KEY REFERENCES Student(Id)
+	);
+
+If needed, here is the scaffold command to save time: Scaffold-DbContext "Server=.\SqlExpress;Database=SinaiGraceRadiologyStudentGradeBook;Trusted_Connection=True;" Microsoft.EntityFrameworkCore.SqlServer -OutputDir Models
+use -force to override curent models
